@@ -8,36 +8,64 @@
 
 {% if user.is_authenticated %}
 
-<h1>USER LOGGED</h1>
-<h1> Active Records</h1>
-{% if records %}
-  {% for record in records %}
-    {{ record }}<br/>
-  {% endfor %}
-{$ endif %}
+  <h1>USER LOGGED</h1>
+  <h1> Active Records</h1>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Phone</th>
+        <th scope="col">Role</th>
+        <th scope="col">Created at</th>
+        <th scope="col">Id</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      {% if records %}
+        {% for record in records %}
+        <tr>
+            <td>{{ record.first_name }}
+            <td>{{ record.last_name }}</td>
+            <td>{{ record.email }}</td>
+            <td>{{ record.phone }}</td>
+            <td>{{ record.role }}</td>
+            <td>{{ record.created_at }}</td>
+            <td>{{ record.id }}</td>
+        </tr>
+        {% endfor %}
+    {% endif %}
+    
+    </tbody>
+  </table>
+
+
+
 
 {% else %}
-<h1>Log in</h1>
-</br>
+  <h1>Log in</h1>
+  </br>
 
-<form method="POST" action="{% url 'home' %}">
-	{% csrf_token %}
-	<form>
-  <div class="mb-3">
-    <label for="exampleInputEmail1" class="form-label">User</label>
-    <input type="text" class="form-control" name= "username", placeholder=" username" required >
+  <form method="POST" action="{% url 'home' %}">
+  	{% csrf_token %}
+  	<form>
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">User</label>
+      <input type="text" class="form-control" name= "username", placeholder=" username" required >
+      
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label">Password</label>
+      <input type="password" class="form-control" name ="password", placeholder="password" required >
+    </div>
     
-  </div>
-  <div class="mb-3">
-    <label for="exampleInputPassword1" class="form-label">Password</label>
-    <input type="password" class="form-control" name ="password", placeholder="password" required >
-  </div>
-  
-  <button type="submit" class="btn btn-secondary">Login</button>
-</form>
-</form>
+    <button type="submit" class="btn btn-secondary">Login</button>
+  </form>
+  </form>
 
-</div>
+  </div>
 {% endif %}
 
 {% endblock %}
